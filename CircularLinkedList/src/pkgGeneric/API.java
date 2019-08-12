@@ -1,14 +1,21 @@
 package pkgGeneric;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 public interface API <E> {
-    public void placeAtBeginning(E element);
-    public void placeAtEnd(E element);
-    public void deleteFromBeginning();
-    public void deleteFromEnd();
-    public void print();
-    public void newHead(E element);
-    public LinkedList<E> getPlayersInOrder();
-}
+
+		public void addAll(List<E> arrayList);
+		public E advanceCurrent();
+	    public void clear();
+	    public void delete(E element);
+	    public void deleteFromBeginning();
+	    public void deleteFromEnd();
+	    public E getCurrent();
+	    public List<E> getItemsInOrder();
+	    public int getSize();
+	    public void newHead(E element);
+	    public void placeAtBeginning(E element);
+	    public void placeAtEnd(E element);
+	    public void setCurrent(E element);
+	    
+	}

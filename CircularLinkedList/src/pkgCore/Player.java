@@ -1,4 +1,4 @@
-package pkgGeneric;
+package pkgCore;
 
 import java.util.UUID;
 
