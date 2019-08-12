@@ -6,9 +6,11 @@ import java.util.List;
 import pkgCore.Player;
 
 public class CircularLinkedList<E> implements API<E> {
+	
 	private Node<E> head;
 	private Node<E> current;
 	private int size = 0;
+	private int rounds = 1;
 
 	public CircularLinkedList() {
 		super();
@@ -31,8 +33,11 @@ public class CircularLinkedList<E> implements API<E> {
 	}
 
 	public E advanceCurrent() {
-		setCurrent(this.current.getNext().getValue());
-
+		
+		setCurrent(this.current.getNext().getValue());		
+		if (head.getValue() == this.current.getValue())
+			rounds++;
+		
 		return getCurrent();
 	}
 
@@ -58,42 +63,17 @@ public class CircularLinkedList<E> implements API<E> {
 	public void delete(E element) {
 		
 		Node<E> temp = head;
-		Node<E> prev = null;
-		if ((size == 1) && (head.getValue() == element)) {
-			this.clear();
-			return;
-		}
-		
-		Player p = (Player)element;
-		Player pNext = (Player)temp.getNext().getValue();
-		Player pNextNext = (Player)temp.getNext().getNext().getValue();		
-		System.out.println(pNext.getPlayerName());
-		System.out.println(pNextNext.getPlayerName());
-		
-		System.out.print(p.getPlayerName());
-		
-		/*
-		while (temp.getNext() != head) {
-			
-			
+		while (temp.getNext().getNext().getValue() != element) {
 			temp = temp.getNext();
 		}
 		
-		while (true)
+		temp.getNext().setNext(temp);
+		
+		if (this.current.getValue() == element)			
 		{
-			Player pNext = (Player)temp.getNext().getValue();
-			Player pNextNext = (Player)temp.getNext().getNext().getValue();
-			
-			System.out.println(pNext.getPlayerName());
-			System.out.println(pNextNext.getPlayerName());
-			if (temp.getNext().getNext().getValue() == element)
-				break;
-			temp = temp.getNext();
+			this.current = temp;
 		}
-		
-		temp.getNext().setNext(temp.getNext().getNext());		
-		current = temp.getNext();
-		*/
+		size--;
 	}
 
 	public void clear() {
@@ -105,6 +85,11 @@ public class CircularLinkedList<E> implements API<E> {
 	@Override
 	public int getSize() {
 		return this.size;
+	}
+	
+	public int getRounds()
+	{
+		return this.rounds;
 	}
 
 	@Override

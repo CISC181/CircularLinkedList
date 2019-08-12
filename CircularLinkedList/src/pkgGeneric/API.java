@@ -12,6 +12,7 @@ public interface API <E> {
 	    public void deleteFromEnd();
 	    public E getCurrent();
 	    public List<E> getItemsInOrder();
+	    public int getRounds();
 	    public int getSize();
 	    public void newHead(E element);
 	    public void placeAtBeginning(E element);
