@@ -24,14 +24,14 @@ public class CircularList_Test {
 		API<Player> list = new CircularLinkedList<Player>();		
 		assertEquals(0, list.getSize());
 		
-		list.placeAtEnd(p1);
+		list.add(p1);
 		assertEquals(1, list.getSize());
 		
 		pCurrent = list.getCurrent();
 		
 		assertEquals(p1,pCurrent);
 		
-		list.placeAtEnd(p2);
+		list.add(p2);
 		assertEquals(p1, list.getCurrent());
 		
 		list.setCurrent(p2);
@@ -41,8 +41,8 @@ public class CircularList_Test {
 		assertEquals(0,list.getSize());		
 		assertNull(list.getCurrent());
 		
-		list.placeAtEnd(p1);
-		list.placeAtEnd(p2);
+		list.add(p1);
+		list.add(p2);
 		assertEquals(p1, list.getCurrent());
 		
 		list.advanceCurrent();
@@ -54,9 +54,9 @@ public class CircularList_Test {
 		
 		
 		list.clear();
-		list.placeAtEnd(p1);
-		list.placeAtEnd(p2);
-		list.placeAtEnd(p3);
+		list.add(p1);
+		list.add(p2);
+		list.add(p3);
 		assertEquals(3, list.getSize());
 		assertEquals(p1, list.getCurrent());		
 		list.delete(p2);
@@ -70,9 +70,9 @@ public class CircularList_Test {
 		assertEquals(p3, list.getCurrent());
 		
 		list.clear();
-		list.placeAtEnd(p1);
-		list.placeAtEnd(p2);
-		list.placeAtEnd(p3);
+		list.add(p1);
+		list.add(p2);
+		list.add(p3);
 		list.advanceCurrent();
 		assertEquals(p2, list.getCurrent());
 		list.setCurrent(p2);
@@ -94,9 +94,9 @@ public class CircularList_Test {
 		Player p4 = new Player("Doug");
 		
 		list.clear();
-		list.placeAtEnd(p1);
-		list.placeAtEnd(p2);
-		list.placeAtEnd(p3);
+		list.add(p1);
+		list.add(p2);
+		list.add(p3);
 		
 		assertEquals(1,list.getRounds());
 		list.advanceCurrent();

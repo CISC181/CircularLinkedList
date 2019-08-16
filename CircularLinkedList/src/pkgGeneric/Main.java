@@ -14,10 +14,10 @@ public class Main {
 		Player p3 = new Player("Carol");
 		Player p4 = new Player("Duke");
 
-		list.placeAtEnd(p1);
-		list.placeAtEnd(p2);
-		list.placeAtEnd(p3);
-		list.placeAtEnd(p4);
+		list.add(p1);
+		list.add(p2);
+		list.add(p3);
+		list.add(p4);
 
 		// list.print();
 		list.setCurrent(p3);

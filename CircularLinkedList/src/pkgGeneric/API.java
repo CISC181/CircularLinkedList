@@ -16,7 +16,7 @@ public interface API <E> {
 	    public int getSize();
 	    public void newHead(E element);
 	    public void placeAtBeginning(E element);
-	    public void placeAtEnd(E element);
+	    public void add(E element);
 	    public void setCurrent(E element);
 	    
 	}

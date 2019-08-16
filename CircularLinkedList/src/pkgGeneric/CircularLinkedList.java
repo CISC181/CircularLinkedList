@@ -12,26 +12,40 @@ public class CircularLinkedList<E> implements API<E> {
 	private int size = 0;
 	private int rounds = 1;
 
+	/**
+	 * Create an empty CircularLinkedList
+	 */
 	public CircularLinkedList() {
 		super();
 		head = null;
 		current = null;
 	}
 
-	public CircularLinkedList(List<E> arrayList) {
+	/**
+	 * Create a CircularLinkedList, seed it with list contents
+	 * @param list - given list of items to add at construction
+	 */
+	public CircularLinkedList(List<E> list) {
 		super();
-		for (E e : arrayList) {
-			placeAtEnd(e);
+		for (E e : list) {
+			add(e);
 		}
 	}
 
-	public void addAll(List<E> arrayList) {
+	/**
+	 * Adds a list of items to existing Circular list, resets head
+	 */
+	public void addAll(List<E> list) {
 		head = null;
-		for (E e : arrayList) {
-			placeAtEnd(e);
+		current=null;
+		for (E e : list) {
+			add(e);
 		}
 	}
 
+	/**
+	 * advanceCurrent.  Set the current to next
+	 */
 	public E advanceCurrent() {
 		
 		setCurrent(this.current.getNext().getValue());		
@@ -137,7 +151,7 @@ public class CircularLinkedList<E> implements API<E> {
 		size++;
 	}
 
-	public void placeAtEnd(E element) {
+	public void add(E element) {
 		Node<E> newNode = new Node<E>(element);
 		if (head == null) {
 			head = newNode;
