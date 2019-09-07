@@ -1,5 +1,7 @@
 package pkgGeneric;
 
+import java.util.List;
+
 import pkgCore.Player;
 
 public class Main {
@@ -17,18 +19,20 @@ public class Main {
 		list.add(p3);
 		list.add(p4);
 		
-
-		list.delete(p2);
-		list.delete(p3);
 		
-		System.out.println(list.getCurrent().getPlayerName());
+		List<Player> players = list.getItemsInOrder();
+		System.out.println(players.size());
 		
-		list.advanceCurrent();
-		System.out.println(list.getCurrent().getPlayerName());
+		for (Player p: players)
+		{
+			System.out.println(p.getPlayerName());
+		}
 		
-		list.delete(p4);
-		System.out.println(list.getCurrent().getPlayerName());
-		
-		
+		list.setCurrent(p3);
+		System.out.println("**** After current set ****");
+		for (Player p: players)
+		{
+			System.out.println(p.getPlayerName());
+		}
 	}
 }
