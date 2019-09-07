@@ -6,9 +6,9 @@ import java.util.List;
 import pkgCore.Player;
 
 public class CircularLinkedList<E> implements API<E> {
-	
+
 	private Node<E> head;
-	private Node<E> current;
+	private E current;
 	private int size = 0;
 	private int rounds = 1;
 
@@ -23,6 +23,7 @@ public class CircularLinkedList<E> implements API<E> {
 
 	/**
 	 * Create a CircularLinkedList, seed it with list contents
+	 * 
 	 * @param list - given list of items to add at construction
 	 */
 	public CircularLinkedList(List<E> list) {
@@ -37,21 +38,23 @@ public class CircularLinkedList<E> implements API<E> {
 	 */
 	public void addAll(List<E> list) {
 		head = null;
-		current=null;
+		current = null;
 		for (E e : list) {
 			add(e);
 		}
 	}
 
 	/**
-	 * advanceCurrent.  Set the current to next
+	 * advanceCurrent. Set the current to next
 	 */
 	public E advanceCurrent() {
-		
-		setCurrent(this.current.getNext().getValue());		
-		if (head.getValue() == this.current.getValue())
-			rounds++;
-		
+
+		Node<E> temp = head;
+		while (temp.getValue() != current) {
+			temp = temp.getNext();
+		}
+		temp = temp.getNext();
+		setCurrent(temp.getValue());
 		return getCurrent();
 	}
 
@@ -75,21 +78,48 @@ public class CircularLinkedList<E> implements API<E> {
 	}
 
 	public void delete(E element) {
-		
+
+		if (!contains(element))
+		{
+			return;
+		}
 		Node<E> temp = head;
-		while (temp.getNext().getNext().getValue() != element) {
+		while (true)
+		{
+			if (temp.getNext().getValue() == element)
+				break;
 			temp = temp.getNext();
 		}
+		temp.setNext(temp.getNext().getNext());
 		
-		temp.getNext().setNext(temp);
-		
-		if (this.current.getValue() == element)			
-		{
-			this.current = temp;
+		if (this.current == element) {
+			this.current = temp.getNext().getValue();
 		}
+		
+		if (this.head.getValue() == element)
+		{
+			this.head = temp.getNext();
+		}
+
 		size--;
 	}
 
+	private boolean contains(E Element)
+	{
+		boolean bContains = false;
+		
+		Node<E> temp = head;
+		while (temp.getNext() != head) {
+			if (temp.getValue() == Element)
+				return true;
+			temp = temp.getNext();
+		}
+		
+		if (temp.getValue() == Element)
+			return true;
+		
+		return bContains;
+	}
 	public void clear() {
 		head = null;
 		current = null;
@@ -100,16 +130,15 @@ public class CircularLinkedList<E> implements API<E> {
 	public int getSize() {
 		return this.size;
 	}
-	
-	public int getRounds()
-	{
+
+	public int getRounds() {
 		return this.rounds;
 	}
 
 	@Override
 	public E getCurrent() {
 		if (size > 0)
-			return (E) this.current.getValue();
+			return (E) this.current;
 		return null;
 	}
 
@@ -155,7 +184,7 @@ public class CircularLinkedList<E> implements API<E> {
 		Node<E> newNode = new Node<E>(element);
 		if (head == null) {
 			head = newNode;
-			current = newNode;
+			current = newNode.getValue();
 		} else {
 			Node<E> temp = head;
 			while (temp.getNext() != head) {
@@ -181,7 +210,7 @@ public class CircularLinkedList<E> implements API<E> {
 			}
 		}
 		newNode.setNext(temp.getNext().getNext());
-		this.current = newNode;
+		this.current = newNode.getValue();
 	}
 
 }

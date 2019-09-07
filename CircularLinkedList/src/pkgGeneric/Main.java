@@ -1,7 +1,5 @@
 package pkgGeneric;
 
-import java.util.LinkedList;
-
 import pkgCore.Player;
 
 public class Main {
@@ -18,39 +16,19 @@ public class Main {
 		list.add(p2);
 		list.add(p3);
 		list.add(p4);
+		
 
-		// list.print();
-		list.setCurrent(p3);
-
-		Player p = (Player) list.getCurrent();
-		System.out.println(p.getPlayerName());
-
-		list.setCurrent(p2);
-		p = (Player) list.getCurrent();
-		System.out.println(p.getPlayerName());
-
-		list.setCurrent(p4);
-		p = (Player) list.getCurrent();
-		System.out.println(p.getPlayerName());
-
-		p = (Player) list.advanceCurrent();
-		System.out.println(p.getPlayerName());
-
-		for (int i = 0; i < 100; i++) {
-			p = (Player) list.advanceCurrent();
-			System.out.println(p.getPlayerName());
-		}
-
-		LinkedList<Player> players = (LinkedList<Player>) list.getItemsInOrder();
-		for (Player ps : players) {
-			System.out.println(ps.getPlayerID() + " " + ps.getPlayerName());
-		}
-
-		list.newHead(p4);
-
-		players = (LinkedList<Player>) list.getItemsInOrder();
-		for (Player ps : players) {
-			System.out.println(ps.getPlayerID() + " " + ps.getPlayerName());
-		}
+		list.delete(p2);
+		list.delete(p3);
+		
+		System.out.println(list.getCurrent().getPlayerName());
+		
+		list.advanceCurrent();
+		System.out.println(list.getCurrent().getPlayerName());
+		
+		list.delete(p4);
+		System.out.println(list.getCurrent().getPlayerName());
+		
+		
 	}
 }
