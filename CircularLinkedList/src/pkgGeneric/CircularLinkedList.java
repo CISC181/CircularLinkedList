@@ -33,6 +33,23 @@ public class CircularLinkedList<E> implements API<E> {
 		}
 	}
 
+	public void add(E element) {
+		Node<E> newNode = new Node<E>(element);
+		if (head == null) {
+			head = newNode;
+			current = newNode.getValue();
+		} else {
+			Node<E> temp = head;
+			while (temp.getNext() != head) {
+				temp = temp.getNext();
+			}
+			temp.setNext(newNode);
+		}
+
+		newNode.setNext(head);
+		size++;
+	}
+
 	/**
 	 * Adds a list of items to existing Circular list, resets head
 	 */
@@ -55,26 +72,34 @@ public class CircularLinkedList<E> implements API<E> {
 		}
 		temp = temp.getNext();
 		setCurrent(temp.getValue());
+		
+		if (head == temp)
+			this.rounds++;
+		
 		return getCurrent();
 	}
 
-	public void deleteFromBeginning() {
-		Node<E> temp = head;
-		while (temp.getNext() != head) {
-			temp = temp.getNext();
-		}
-		temp.setNext(head.getNext());
-		head = head.getNext();
-		size--;
+	public void clear() {
+		head = null;
+		current = null;
+		size = 0;
 	}
 
-	public void deleteFromEnd() {
+	private boolean contains(E Element)
+	{
+		boolean bContains = false;
+		
 		Node<E> temp = head;
-		while (temp.getNext().getNext() != head) {
+		while (temp.getNext() != head) {
+			if (temp.getValue() == Element)
+				return true;
 			temp = temp.getNext();
 		}
-		temp.setNext(head);
-		size--;
+		
+		if (temp.getValue() == Element)
+			return true;
+		
+		return bContains;
 	}
 
 	public void delete(E element) {
@@ -103,36 +128,23 @@ public class CircularLinkedList<E> implements API<E> {
 
 		size--;
 	}
-
-	private boolean contains(E Element)
-	{
-		boolean bContains = false;
-		
+	public void deleteFromBeginning() {
 		Node<E> temp = head;
 		while (temp.getNext() != head) {
-			if (temp.getValue() == Element)
-				return true;
 			temp = temp.getNext();
 		}
-		
-		if (temp.getValue() == Element)
-			return true;
-		
-		return bContains;
-	}
-	public void clear() {
-		head = null;
-		current = null;
-		size = 0;
+		temp.setNext(head.getNext());
+		head = head.getNext();
+		size--;
 	}
 
-	@Override
-	public int getSize() {
-		return this.size;
-	}
-
-	public int getRounds() {
-		return this.rounds;
+	public void deleteFromEnd() {
+		Node<E> temp = head;
+		while (temp.getNext().getNext() != head) {
+			temp = temp.getNext();
+		}
+		temp.setNext(head);
+		size--;
 	}
 
 	@Override
@@ -151,6 +163,15 @@ public class CircularLinkedList<E> implements API<E> {
 		}
 		list.add((E) temp.getValue());
 		return list;
+	}
+
+	public int getRounds() {
+		return this.rounds;
+	}
+
+	@Override
+	public int getSize() {
+		return this.size;
 	}
 
 	@Override
@@ -177,23 +198,6 @@ public class CircularLinkedList<E> implements API<E> {
 			head = newNode;
 			last.setNext(head);
 		}
-		size++;
-	}
-
-	public void add(E element) {
-		Node<E> newNode = new Node<E>(element);
-		if (head == null) {
-			head = newNode;
-			current = newNode.getValue();
-		} else {
-			Node<E> temp = head;
-			while (temp.getNext() != head) {
-				temp = temp.getNext();
-			}
-			temp.setNext(newNode);
-		}
-
-		newNode.setNext(head);
 		size++;
 	}
 
